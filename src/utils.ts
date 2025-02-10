@@ -32,7 +32,8 @@ export function parsePythonVersionFile(contents: string): string {
   let pythonVersion: string | undefined;
 
   // Try to find the version in tool-version file
-  const found = contents.match(/^(?:python\s+)?v?(?<version>[^\s]+)$/m);
+  const regex = /(?:python\s*(?<version>\d+\.\d+(\.\d+)?(\.\d+)?(\.\d+)?|\.\d+)?|pypy(?:-?\d+(\.\d+)?(\.\d+)?|\.\d+)?(?:-v(?<version>\d+\.\d+(\.\d+)?(\.\d+)?(rc\d+|nightly)?)?)?)/;
+  const found = contents.match(regex);
   pythonVersion = found?.groups?.version;
 
   // In the case of an unknown format,
